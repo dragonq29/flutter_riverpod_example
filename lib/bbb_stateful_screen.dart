@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_example/ccccdddd_viewmodel.dart';
+import 'package:riverpod_example/eeee_viewmodel.dart';
 
 // StatefulWidget에 Riverpod을 적용하려면 ConsumerStatefulWidget을 사용
 class BbbStatefulScreen extends ConsumerStatefulWidget {
@@ -33,6 +34,25 @@ class BbbStatefulScreenState extends ConsumerState {
             onChanged: (value) => ref.read(abcdProvier.notifier).setDddd(value),
             title: const Text("DDDD"),
           ),
+          ref.watch(eeeeProvider).when(
+                loading: () => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                error: (error, stackTrace) => Center(
+                  child: Text(
+                    "Could not load value: $error",
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                data: (eeeeModel) => SwitchListTile.adaptive(
+                  value: eeeeModel.eeee,
+                  onChanged: (value) =>
+                      ref.read(eeeeProvider.notifier).tapEeee(),
+                  title: const Text("EEEE"),
+                ),
+              ),
         ],
       ),
     );
